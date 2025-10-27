@@ -8,14 +8,14 @@ class HomeScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context,WidgetRef ref) {
-    final postList = ref.watch(postProvider);
+    final postItem = ref.watch(postProvider);
     return Scaffold(
       appBar: AppBar(title: Center(child: Text('Get Api')),),
       body: Center(
-        child: postList.when(
+        child: postItem.when(
             data: (data) => ListView.builder(
               itemCount: data.length,
-                itemBuilder: (builder,index){
+                itemBuilder: (context,index){
                   final post = data[index];
                   return Card(
                     child: ListTile(

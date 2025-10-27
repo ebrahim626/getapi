@@ -9,7 +9,7 @@ final postProvider = FutureProvider<List<PostModel>>((ref) async {
   try{
     final response = await http.get(Uri.parse('https://jsonplaceholder.typicode.com/posts'));
     if(response.statusCode == 200){
-      final data = jsonDecode(response.body);
+      final List<dynamic> data = jsonDecode(response.body);
       List<PostModel> postList = data.map((item) => PostModel.fromJson(item)).toList();
       return postList;
     }else {

@@ -11,15 +11,23 @@ class HomeScreen extends ConsumerWidget {
     final postList = ref.watch(postProvider);
     return Scaffold(
       appBar: AppBar(title: Center(child: Text('Get Api')),),
-      body: postList.when(
-          data: (data) => ListView.builder(
-              itemBuilder: (builder,index){
-                final post = data[index];
-                return ListTile(title: Text(post.title ?? "No Title"),);
-              }
-          ),
-          error: (error,stack)=> Text('error: $error'),
-          loading: ()=> CircularProgressIndicator(),
+      body: Center(
+        child: postList.when(
+            data: (data) => ListView.builder(
+              itemCount: data.length,
+                itemBuilder: (builder,index){
+                  final post = data[index];
+                  return Card(
+                    child: ListTile(
+                      title: Text(post.title ?? "No Title"),
+                      subtitle: Text(post.body ?? "No Subtitle"),
+                    ),
+                  );
+                }
+            ),
+            error: (error,stack)=> Text('error: $error'),
+            loading: ()=> CircularProgressIndicator(),
+        ),
       ),
     );
   }

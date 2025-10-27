@@ -11,6 +11,7 @@ final postProvider = FutureProvider<List<PostModel>>((ref) async {
     if(response.statusCode == 200){
       final data = jsonDecode(response.body);
       List<PostModel> postList = data.map((item) => PostModel.fromJson(item));
+      return postList;
     }else {
       throw 'Something went wrong.';
     }

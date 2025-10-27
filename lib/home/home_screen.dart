@@ -8,13 +8,19 @@ class HomeScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context,WidgetRef ref) {
-    final PostModel postModel = PostModel(body: 'sdf');
+    final postList = ref.watch(postProvider);
     return Scaffold(
       appBar: AppBar(title: Center(child: Text('Get Api')),),
-      body: ListView.builder(itemBuilder: (builder, index){
-        final data = ref.watch(postProvider);
-        return ListTile(title: Text(), );
-      }),
+      body: postList.when(
+          data: (data) => ListView.builder(
+              itemBuilder: (builder,index){
+                final post = data[index];
+                return ListTile(title: Text(post.title ?? "No Title"),);
+              }
+          ),
+          error: (error,stack)=> Text('error: $error'),
+          loading: ()=> CircularProgressIndicator(),
+      ),
     );
   }
 }
